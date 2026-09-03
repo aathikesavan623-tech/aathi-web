@@ -1,0 +1,157 @@
+<!DOCTYPE>
+<html>
+<head>
+<link rel="stylesheet "href="style.css">
+<style>
+button:hover{background:orange;}
+#div1{
+float:center;
+width:1550px;
+height:300px;
+padding:10px;
+border:1px solid black;
+}
+h3{color:blue;}
+#title{
+      color:red;}
+.note{
+      color:pink;}
+
+</style>
+<script>
+function during_dragdrop(e){
+      e.preventDefault();
+}
+function begin_drag(e){
+      e.dataTransfer.setData("text/html",e.target.id);
+}
+function end_drop(e){
+      e.preventDefault();
+      var code=e.dataTransfer.getData("text/html");
+      var original=document.getElementById(code);
+      var copy=original.cloneNode(true);
+      copy.id="copy_"+new Date().getTime();
+      copy.draggable=true;
+      e.target.appendChild(copy);
+}
+</script>
+<center><Tittle><h1 id="title" >WELCOME TO FLIPKART</h1></Tittle></center>
+</head>
+<body>
+<center><img src="images (26).jfif" width="350" height="350" ></center>
+<h3 style="color:red;">choose your product</h3>
+<img src="joker.png" width="650" height="350"usemap="#section1">
+<map name="section1">
+<area shap="rect"coords="1,2,212,337"href="#watch">
+<area shap="rect"coords="208,5,584,334"href="#shoe">
+<area shap="rect"coords="588,7,872,338"href="#tshirt">
+<area shap="rect"coords="1012,7,1487,447"href="#tv">
+</map>
+<section id="watch">
+<h3>WATCH SECTION</h3>
+<table border=4px>
+<td><img id="drag1" src="images (4).jfif" width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+<td><img id="drag2" src="images (5).jfif"width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+<td><img id="drag3" src="images (6).jfif"width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video>></td>
+
+</table>
+</section>
+<section id="shoe">
+<h3>SHOE SECTION</h3>
+<table border=4px>
+<td><img id="drag4" src="images (7).jfif" width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+<td><img id="drag5" src="images (8).jfif"width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+<td><img id="drag6" src="images (9).jfif"width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+
+</table>
+</section>
+<section id="tshirt">
+<h3>T-SHIRT SECTION</h3>
+<table border=4px>
+<td><img id="drag7" src="images (22).jfif" width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop> </video></td>
+<td><img id="drag8" src="images (24).jfif"width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+<td><img id="drag9" src="images (23).jfif"width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+
+</table>
+</section>
+<section id="tv">
+<h3>TV SECTION</h3>
+<table border=4px>
+<td><img id="drag10" src="images (30).jfif" width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+<td><img id="drag11" src="images (31).jfif" width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+<td><img id="drag12" src="images (32).jfif" width=250px height=250px draggable="true" ondragstart="begin_drag(event)"/><video src="iphone.mp4" controls width=250px height=250px loop></video></td>
+
+</table>
+</section>
+<h2>ADD TO CART</h2>
+<table>
+<tr>
+<td width="10%">
+<div id="div1"
+     ondrop="end_drop(event)"
+     ondragover="during_dragdrop(event)">
+</div>
+</td>
+</tr>
+</table>
+<br>
+<hr>
+<br>
+<h2 align = center class="note">PAYMENT DETAILS</h2>
+<br>
+<div align = "center">
+<tr><li><b>Name : </b><input type = "text" , size = "20" value = ""></li></tr><br>
+<tr><b><li>E-mail : </b><input type = "text" , size = "20" value = ""></li></tr><br>
+<tr><b><li>Ph No : </b><input type = "text" , size = "20" value = ""></li></tr><br>
+<tr><b><li>Total : $2500</li></br></tr>
+<tr>
+<b><li>Select Payment Mode : </b>
+      <select name = "Mymenu">
+            <option value ="UPI">UPI</option>
+            <option value ="Net Banking">Net Banking</option>
+      </select>
+<br>
+<br>
+<Button>PLACE ORDER</button>
+</tr>
+</div>
+<hr>
+<script>
+var x = document.getElementById("demo");
+function getLocation() {
+      if(navigator.geolocation)
+       navigator.geolocation.getCurrentPosition(showPosition);
+}else{
+x.innerHTML = "Geolocation is not supported by this browser:";
+
+}
+function showPosition(position){
+x.innerHTML = "Latitude:" + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+<hr>
+<div align = "center" ><button onclick="getLocation()">Show Shop Location</button></div>
+
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+        alert("Geolocation is not supported.");
+    }
+}
+
+function showPosition(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+
+    // Open Google Maps
+    window.open("https://www.google.com/maps?q=" + lat + "," + lon, "_blank");
+}
+
+function showError() {
+    alert("Unable to retrieve your location.");
+}
+</script>
+
+</html>

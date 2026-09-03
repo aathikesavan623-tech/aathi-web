@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Job Registration Form</title>
+
+    <style>
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        input,
+        select {
+            width: 50%;
+            padding: 5px;
+            margin-top: 10px;
+        }
+
+        input[type="submit"] {
+            width: 150px;
+            padding: 8px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: red;
+        }
+
+        .error {
+            color: red;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <center>
+        <h1 style="color: blue;">Job Registration Form</h1>
+    </center>
+
+    <div class="container">
+
+        <form id="jobForm">
+
+            <label>Full Name :</label>
+            <input type="text" id="name">
+            <span id="nameError" class="error"></span>
+
+
+            <label>Mobile Number :</label>
+            <input type="text"
+                   id="mobile"
+                   maxlength="10"
+                   oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+            <span id="mobileError" class="error"></span>
+
+
+            <label>Email :</label>
+            <input type="text" id="email">
+            <span id="emailError" class="error"></span>
+
+
+            <label>Date of Birth :</label>
+            <input type="date" id="dob">
+            <span id="dobError" class="error"></span>
+
+
+            <label>Gender :</label>
+            <select id="gender">
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <span id="genderError" class="error"></span>
+
+
+            <label>Highest Qualification :</label>
+            <input type="text" id="qualification">
+            <span id="qualificationError" class="error"></span>
+
+
+            <label>Experience (Years) :</label>
+            <input type="number" id="experience">
+
+
+            <label>Upload Resume :</label>
+            <input type="file"
+                   id="resume"
+                   accept=".pdf,.doc,.docx">
+            <span id="resumeError" class="error"></span>
+
+
+            <input type="submit" value="Register">
+
+            <center>
+                <h4 id="success" class="success"></h4>
+            </center>
+
+        </form>
+
+    </div>
+
+
+    <script>
+
+        document.getElementById("jobForm").addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            // Clear all previous errors
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("mobileError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("dobError").innerHTML = "";
+            document.getElementById("genderError").innerHTML = "";
+            document.getElementById("qualificationError").innerHTML = "";
+            document.getElementById("resumeError").innerHTML = "";
+            document.getElementById("success").innerHTML = "";
+
+
+            // Get form values
+            var name = document.getElementById("name").value.trim();
+            var mobile = document.getElementById("mobile").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var dob = document.getElementById("dob").value;
+            var gender = document.getElementById("gender").value;
+            var qualification = document.getElementById("qualification").value.trim();
+            var resume = document.getElementById("resume").files[0];
+
+
+            // This variable tells us whether there is any error
+            var hasError = false;
+
+
+            // =========================
+            // NAME VALIDATION
+            // =========================
+
+            if (name == "") {
+                document.getElementById("nameError").innerHTML =
+                    "Name is required.";
+
+                hasError = true;
+            }
+
+
+            // =========================
+            // MOBILE VALIDATION
+            // =========================
+
+            if (mobile == "") {
+
+                document.getElementById("mobileError").innerHTML =
+                    "Mobile number is required.";
+
+                hasError = true;
+
+            } else if (mobile.length != 10) {
+
+                document.getElementById("mobileError").innerHTML =
+                    "Enter a valid 10 digit mobile number.";
+
+                hasError = true;
+            }
+
+
+            // =========================
+            // EMAIL VALIDATION
+            // =========================
+
+            if (email == "") {
+
+                document.getElementById("emailError").innerHTML =
+                    "Email is required.";
+
+                hasError = true;
+
+            } else {
+
+                var emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+                if (!emailPattern.test(email)) {
+
+                    document.getElementById("emailError").innerHTML =
+                        "Enter a valid email address.";
+
+                    hasError = true;
+                }
+            }
+
+
+            // =========================
+            // DATE OF BIRTH VALIDATION
+            // =========================
+
+            if (dob == "") {
+
+                document.getElementById("dobError").innerHTML =
+                    "Select your date of birth.";
+
+                hasError = true;
+            }
+
+
+            // =========================
+            // GENDER VALIDATION
+            // =========================
+
+            if (gender == "") {
+
+                document.getElementById("genderError").innerHTML =
+                    "Select gender.";
+
+                hasError = true;
+            }
+
+
+            // =========================
+            // QUALIFICATION VALIDATION
+            // =========================
+
+            if (qualification == "") {
+
+                document.getElementById("qualificationError").innerHTML =
+                    "Qualification is required.";
+
+                hasError = true;
+            }
+
+
+            // =========================
+            // RESUME VALIDATION
+            // =========================
+
+            if (!resume) {
+
+                document.getElementById("resumeError").innerHTML =
+                    "Upload your resume.";
+
+                hasError = true;
+
+            } else {
+
+                // Check file extension
+                var extension = resume.name.split(".").pop().toLowerCase();
+
+                if (extension != "pdf" &&
+                    extension != "doc" &&
+                    extension != "docx") {
+
+                    document.getElementById("resumeError").innerHTML =
+                        "Only PDF, DOC, DOCX files allowed.";
+
+                    hasError = true;
+                }
+
+
+                // Check file size
+                if (resume.size > 2 * 1024 * 1024) {
+
+                    document.getElementById("resumeError").innerHTML =
+                        "Resume size must be less than 2MB.";
+
+                    hasError = true;
+                }
+            }
+
+
+            // =========================
+            // IF ANY ERROR EXISTS
+            // =========================
+
+            if (hasError) {
+                return;
+            }
+
+
+            // =========================
+            // SUCCESS
+            // =========================
+
+            document.getElementById("success").innerHTML =
+                "Registration Successful!";
+
+            document.getElementById("jobForm").reset();
+
+        });
+
+    </script>
+
+</body>
+
+</html>
